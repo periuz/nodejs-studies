@@ -1,27 +1,26 @@
 import http from 'http';
+import { json } from './middlewares/json.js';
+import { routes } from './routes.js';
 
-const users = []
+// Front-end application can send three types of requestes:
+// Query parameters (url stateful - filters on pages) - http://localhost:3333/users?userId=1&name=Thiago
+// Route parameters (identify recourse) - http://localhost:3333/users/1 
+// Request body (send information to the server using a form)
 
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
     const { method, url } = req;
+
+    await json(req, res)
     
-    if (method === 'GET' && url === '/users') {
-        return res
-            .setHeader('Content-Type', 'application/json')
-            .writeHead(200)
-            .end(JSON.stringify(users));
+    const route = routes.find(route => {
+        return route.method === method && route.path.test(url);
+    })
 
-        
-    }
+    if (route) {
+        const routeParams = req.url.match(route.path);
+        req.params = { ...routeParams.groups };
 
-    if (method === 'POST' && url === '/users') {
-        users.push({
-            name: "john doe",
-            id: Math.floor(Math.random() * 1000)
-        })
-
-        res.writeHead(201, { 'Content-Type': 'application/json' });
-        return res.end(JSON.stringify({ status: 'created' }));
+        return route.handler(req, res, req.params)
     }
 
     res.writeHead(404, { 'Content-Type': 'application/json' }).end(JSON.stringify({ error: 'Not Found' }));
