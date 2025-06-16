@@ -1,0 +1,40 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+.env
+.env.*.local
+
+# TypeScript
+dist/
+build/
+*.tsbuildinfo
+
+# VSCode (opcional, mas comum)
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# Coverage
+coverage/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Docker (caso use)
+*.local
+docker-compose.override.yml
+
+# Optional: ignore SQLite DB files
+*.sqlite
+*.sqlite3
+*.db
+
+# Optional: ignore test snapshots
+__snapshots__/
