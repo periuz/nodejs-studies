@@ -1,17 +1,17 @@
-import { knex as setupKnex } from 'knex';
-import fs from 'node:fs';
-import path from 'node:path';
 
-// Garante que a pasta 'temp' existe
-const tempDir = path.resolve('temp');
-if (!fs.existsSync(tempDir)) {
-  fs.mkdirSync(tempDir);
-}
+import { knex as setupKnex, Knex } from 'knex';
+import { env } from './env'
 
-export const knex = setupKnex({
+export const config: Knex.Config = {
   client: 'sqlite3',
   connection: {
-    filename: path.join(tempDir, 'app.db'),
+    filename: env.DATABASE_URL,
   },
   useNullAsDefault: true,
-});
+  migrations: {
+    extension: 'ts',
+    directory: './db/migrations',
+  }
+}
+
+export const knex = setupKnex(config);

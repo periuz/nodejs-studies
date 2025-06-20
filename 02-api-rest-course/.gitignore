@@ -9,7 +9,7 @@ package-lock.json
 .env.*.local
 
 # Build outputs
-temp/app.db
+db/app.db
 
 # TypeScript
 dist/
