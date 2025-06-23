@@ -7,6 +7,10 @@ import { checkSessionIdExists } from 'middlewares/check-session-id-exists';
 //Cookies <-> Ways to mantain context between requests
 
 export async function transactionsRoutes(app: FastifyInstance) {
+    // app.addHook('preHandler', async (request, reply) { - preHandler GLOBAL que se pode fazer
+
+    // })
+    
     app.get('/', { preHandler: [checkSessionIdExists] },async (request, reply) => {
         
         const { sessionId } = request.cookies

@@ -5,7 +5,12 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "lint": "eslint src --ext .ts",
-    "knex": "node -r ts-node/register ./node_modules/knex/bin/cli.js --knexfile knexfile.ts"
+    "knex": "node -r ts-node/register ./node_modules/knex/bin/cli.js --knexfile knexfile.ts",
+    "knex:migrate:latest": "knex migrate:latest --knexfile ./knexfile.ts",
+    "knex:migrate:rollback": "knex migrate:rollback --all --knexfile ./knexfile.ts",
+    "knex:migrate:latest:test": "cross-env NODE_ENV=test knex migrate:latest --knexfile ./knexfile.ts",
+    "knex:migrate:rollback:test": "cross-env NODE_ENV=test knex migrate:rollback --all --knexfile ./knexfile.ts",
+    "test": "cross-env NODE_ENV=test vitest"
   },
   "keywords": [],
   "author": "",
@@ -14,10 +19,14 @@
   "devDependencies": {
     "@rocketseat/eslint-config": "^2.2.2",
     "@types/node": "^24.0.3",
+    "@types/supertest": "^6.0.3",
+    "cross-env": "^7.0.3",
     "eslint": "^8.57.1",
+    "supertest": "^7.1.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.3",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vite-tsconfig-paths": "^5.1.4"
   },
   "dependencies": {
     "@fastify/cookie": "^11.0.2",
