@@ -1,7 +1,6 @@
-import { afterAll, beforeAll, expect, it } from "vitest";
+import { afterAll, beforeAll, expect, it, describe } from "vitest";
 import request from 'supertest'
 import { app } from "@/app";
-import { describe } from "vitest";
 import { createAndAuthenticateUser } from "@/utils/create-and-authenticate-user";
 
 describe('Profile (e2e)', () => {
