@@ -1,11 +1,13 @@
-import { randomUUID } from "node:crypto"
+import { Entity } from "../../core/entities/entity"
 
-export class Answer {
-    public content: string
-    public id: string
+export interface AnswerProps {
+    authorId: string
+    questionId: string
+    content: string
+}
 
-    constructor (content: string, id?: string) {
-        this.content = content
-        this.id = id ?? randomUUID()
+export class Answer extends Entity<AnswerProps> {
+    get content() {
+        return this.props.content
     }
 }
